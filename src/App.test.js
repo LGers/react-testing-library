@@ -1,43 +1,43 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-//lesson-1
-test('renders learn react link', () => {
-  render(<App />);
-  // const linkElement = screen.getByText(/learn react/i);
-  // expect(linkElement).toBeInTheDocument();
-  screen.debug();
-});
+/*
+Search variants:
+  getBy:                    queryby:                    findBy:
+- getByText               - queryByText               - findByText
+- getByRole               - queryByRole               - findByRole
+- getByLabelText          - queryByLabelText          - findByLabelText
+- getByPlaceholderText    - queryByPlaceholderText    - findByPlaceholderText
+- getByAltText            - queryByAltText            - findByAltText
+- getByDisplayValue       - queryByDisplayValue       - findByDisplayValue
+- getAllBy                - queryAllBy                - findAllBy
+*/
 
-//lesson-2
-//snapshot
-test('renders learn react link2', () => {
-  const { asFragment } = render(<App />);
-  expect(asFragment(<App />)).toMatchSnapshot();
-});
+/*
+Assertive Functions:
+- toBeDisabled            - toBeEnabled               - toBeEmpty
+- toBeEmptyDOMElement     - toBeInTheDocument         - toBeInvalid
+- toBeRequired            - toBeValid                 - toBeVisible
+- toContainElement        - toContainHTML             - toHaveAttribute
+- toHaveClass             - toHaveFocus               - toHaveFormValues
+- toHaveStyle             - toHaveTextContent         - toHaveValue
+- toHaveDisplayValue      - toBeChecked               - toBePartiallyChecked
+- toHaveDescription
+*/
 
-// test('renders Search', () => {
-//   const { asFragment } = render(<Search />);
-//   expect(asFragment(<Search />)).toMatchSnapshot();
-// });
+//lesson-4
 
-//lesson-3
 describe("App", () => {
-  it("render App component", () => {
+  it("renders App component", async () => {
     render(<App />);
+    // expect(screen.queryByText(/Searches for React/i)).toBeNull();
+    expect(screen.queryByText(/Logged in as/i)).toBeNull();
     screen.debug();
-    expect(screen.getByText(/Search:/i)).toBeInTheDocument();
-  });
-});
-
-describe("App2", () => {
-  it("render App component", () => {
-    render(<App />);
-    expect(screen.getByText(/Search:/i)).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-    expect(screen.getByLabelText(/search/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('search text...')).toBeInTheDocument();
-    expect(screen.getByAltText('search image')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('')).toBeInTheDocument();
+    expect(await screen.findByText(/Logged in as/i)).toBeInTheDocument();
+    screen.debug();
+    expect(screen.getByAltText(/image/i)).toHaveClass('image');
+    expect(screen.getByLabelText(/search/i)).not.toBeRequired();
+    expect(screen.getByLabelText(/search/i)).toBeEmpty();
+    expect(screen.getByLabelText(/search/i)).toHaveAttribute("id");
   });
 });

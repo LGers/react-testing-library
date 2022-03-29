@@ -1,17 +1,29 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import logo from './logo.svg';
 import './App.css';
 
 const Search = ({value, onChange, children}) => (
   <div>
     <label htmlFor='search'>{children}</label>
-    <input id="search" type="text" value={value} onChange={onchange} placeholder='search text...'></input>
+    <input id="search" type="text" value={value} onChange={onchange} placeholder='search text...' 
+      // required
+    ></input>
   </div>
 )
 
 const App = () => {
+  const getUser = () => Promise.resolve({ id: 1, name: "Leonid" });
 
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
+  const [user, setUser] = useState("");
+
+  useEffect(() =>{
+    const loadUser = async () => {
+      const user = await getUser();
+      setUser(user);
+    };
+    loadUser();
+  }, []);
 
   const handleChange = ({ target }) => {
     setSearch(target.value)
@@ -19,28 +31,13 @@ const App = () => {
 
   return (
     <div>
-      <img src='' alt='search image'/>
+      {user && <h2>Logged in as {user.name}</h2>}
+      <img className="image" src='' alt='search image'/>
       <Search value={search} onChange={handleChange}>
         Search:
       </Search>
       <p>Searches for {search ? search : "..."}</p>
     </div>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React testing library
-    //     </a>
-    //   </header>
-    // </div>
   )
 }
 

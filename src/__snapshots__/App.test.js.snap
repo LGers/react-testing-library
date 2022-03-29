@@ -3,6 +3,10 @@
 exports[`renders learn react link2 1`] = `
 <DocumentFragment>
   <div>
+    <img
+      alt="search image"
+      src=""
+    />
     <div>
       <label
         for="search"
@@ -11,6 +15,7 @@ exports[`renders learn react link2 1`] = `
       </label>
       <input
         id="search"
+        placeholder="search text..."
         type="text"
         value=""
       />
