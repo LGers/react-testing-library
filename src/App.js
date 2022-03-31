@@ -2,18 +2,24 @@ import React, { useEffect, useState } from "react"
 import logo from './logo.svg';
 import './App.css';
 
+const getUser = () => Promise.resolve({ id: 1, name: "Leonid" });
+
 const Search = ({value, onChange, children}) => (
   <div>
     <label htmlFor='search'>{children}</label>
-    <input id="search" type="text" value={value} onChange={onchange} placeholder='search text...' 
+    <input 
+      id="search"
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder='search text...'
       // required
     ></input>
   </div>
-)
+);
 
 const App = () => {
-  const getUser = () => Promise.resolve({ id: 1, name: "Leonid" });
-
+  
   const [search, setSearch] = useState("");
   const [user, setUser] = useState("");
 
@@ -22,6 +28,7 @@ const App = () => {
       const user = await getUser();
       setUser(user);
     };
+
     loadUser();
   }, []);
 
@@ -38,7 +45,7 @@ const App = () => {
       </Search>
       <p>Searches for {search ? search : "..."}</p>
     </div>
-  )
-}
+  );
+};
 
 export default App;
